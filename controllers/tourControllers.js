@@ -28,18 +28,21 @@ const createTour = async (req, res) => {
 // GET /tours/:tourId
 const getTourById = async (req, res) => {
   const { tourId } = req.params;
+  
 
   if (!mongoose.Types.ObjectId.isValid(tourId)) {
     return res.status(400).json({ message: "Invalid tour ID" });
   }
 
   try {
-    const tour = await Tour.findById(tourId);
-    if (tour) {
-      res.status(200).json(tour);
-    } else {
-      res.status(404).json({ message: "Tour not found" });
+    const user_id = req.user._id;
+    const tour = await Tour.findById(tourId)
+    .where("user_id")
+    .equals(user_id);
+    if (!tour) {
+      return res.status(404).json({ message: "Tour not found" });
     }
+    res.status(200).json(tour);
   } catch (error) {
     res.status(500).json({ message: "Failed to retrieve tour" });
   }
