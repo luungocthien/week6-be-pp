@@ -7,10 +7,10 @@ const {
   updateTour,
   deleteTour,
 } = require("../controllers/tourControllers");
-// const auth = require("../middleware/auth");
-
+const auth = require("../middleware/requireAuth");
+router.use(auth);
 router.get("/", getAllTours);
-// router.use(auth);
+
 router.post("/", createTour);
 router.get("/:tourId", getTourById);
 router.put("/:tourId", updateTour);

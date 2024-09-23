@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const validator = require("validator");
-
+//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmYxNGEyMmVlYTUyYWU0OTY4ZDNkMGMiLCJpYXQiOjE3MjcwODkxODYsImV4cCI6MTcyNzM0ODM4Nn0.QC8Uihq45qtdCF7XaWOZjUCVT_Bjext69_3SHfg5aLg
 const userSchema = mongoose.Schema(
   {
     name: {
