@@ -4,19 +4,13 @@ const validator = require("validator");
 //eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmYxNGEyMmVlYTUyYWU0OTY4ZDNkMGMiLCJpYXQiOjE3MjcwODkxODYsImV4cCI6MTcyNzM0ODM4Nn0.QC8Uihq45qtdCF7XaWOZjUCVT_Bjext69_3SHfg5aLg
 const userSchema = mongoose.Schema(
   {
-    name: {
-      type: String,
-      required: [true, "Please add a name"],
-    },
-    email: {
-      type: String,
-      required: [true, "Please add an email"],
-      unique: true,
-    },
-    password: {
-      type: String,
-      required: [true, "Please add a password"],
-    },
+    name: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
+    phone_number: { type: String, required: true },
+    gender: { type: String, required: true },
+    date_of_birth: { type: Date, required: true },
+    membership_status: { type: String, required: true },
   },
   {
     timestamps: true,
@@ -24,9 +18,25 @@ const userSchema = mongoose.Schema(
 );
 
 // static signup method
-userSchema.statics.signup = async function (name, email, password) {
+userSchema.statics.signup = async function (
+  name,
+  email,
+  password,
+  phone_number,
+  gender,
+  date_of_birth,
+  membership_status
+) {
   // validation
-  if ((!name, !email || !password)) {
+  if (
+    !name ||
+    !email ||
+    !password ||
+    !phone_number ||
+    !gender ||
+    !date_of_birth ||
+    !membership_status
+  ) {
     throw Error("Please add all fields");
   }
   if (!validator.isEmail(email)) {
@@ -49,6 +59,10 @@ userSchema.statics.signup = async function (name, email, password) {
     name,
     email,
     password: hashedPassword,
+    phone_number,
+    gender,
+    date_of_birth,
+    membership_status,
   });
 
   return user;
